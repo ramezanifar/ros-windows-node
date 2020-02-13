@@ -1,5 +1,5 @@
 # ros-windows-node
-How to have a rosnode in windows created by python to talk to roscore in Linux
+How to have a rosnode in Windows created by python to talk to roscore in Linux
 
 ### Problem statement:  
 roscore is in Linux. We want to use rospy library to create an application and run it in Windows so that this node can communicate with the roscore.
@@ -10,7 +10,7 @@ roscore is in Linux. We want to use rospy library to create an application and r
 - You can ping a machine from other one
 
 ### Steps  
-1- Copy the content of the linux directory of **/opt/ros/melodic/lib/python2.7/dist-packages** and put it in a desired folder in Windows. For example **D:\Test\ros_packages**
+1- Copy the content of the Linux directory of **/opt/ros/melodic/lib/python2.7/dist-packages** and put it in a desired folder in Windows. For example **D:\Test\ros_packages**
 
 2- Assuming you have python2.7 and pip installed in Windows. Go to the path **C:\Python27\Lib\site-packages** and screenshot the existing files and folders. Next we want to install some packages and move them outside. So we need to know the differences.
 
@@ -40,7 +40,7 @@ These lines can be added in the .bashrc and as a result when you open a terminal
 10- Run roscore and your code  
 
 ### Troubleshooting
-1- In Linux make sure the node created in windows appears in rosnode list.   
+1- In Linux make sure the node created in Windows appears in rosnode list.   
 2- use roswtf to see if there is any error  
-3- Check your windows and Linux firewall
+3- Check your Windows and Linux firewall
 
