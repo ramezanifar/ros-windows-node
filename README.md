@@ -1,5 +1,5 @@
 # ros-windows-node
-How to have a rosnode in Windows created by python to talk to roscore in Linux
+How to have a ros node in Windows created by python to talk to roscore in Linux
 
 ### Problem statement:  
 roscore is in Linux. We want to use rospy library to create an application and run it in Windows so that this node can communicate with the roscore.
