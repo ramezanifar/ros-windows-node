@@ -2,7 +2,7 @@
 How to have a ros node in Windows created by python to talk to roscore in Linux
 
 ### Problem statement:  
-roscore is in Linux. We want to use rospy library to create an application and run it in Windows so that this node can communicate with the roscore.
+roscore is in Linux. We want to use the rospy library to create an application and run it in Windows so that this node can communicate with the roscore.
 
 ### Network assumptions  
 - Linux machine IP address is 192.168.1.10  
@@ -31,7 +31,7 @@ sys.path.insert(0, "./ros_packages")
   
 7- Put your main python code in  **D:\Test**   
 8- In your main python code import config.py   
-9- Set the environemnt variables in Linux befor running any ros command such as roscore, rostopic echo , etc.
+9- Set the environemnt variables in Linux before running any ros command such as roscore, rostopic echo , etc. :
 
 source /opt/ros/melodic/setup.bash   
 export ROS_MASTER_URI=http://192.168.1.10:11311   
