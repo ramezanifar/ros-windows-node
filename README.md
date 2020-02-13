@@ -23,10 +23,11 @@ pip install rospkg
 5- Cut all the added folders from **C:\Python27\Lib\site-packages** to the same folder where you put ros stuff. In our example **D:\Test\ros_packages**
 
 6- Create a python file in **D:\Test\config.py** and put the following code in it:
-
+```python
 import os, sys  
 os.environ['ROS_MASTER_URI'] = 'http://192.168.1.30:11311'  
 sys.path.insert(0, "./ros_packages")  
+```
   
 7- Put your main python code in  **D:\Test**   
 8- In your main python code import config.py   
