@@ -45,7 +45,7 @@ These lines can be added in the .bashrc and as a result when you open a terminal
 11- Run roscore and your code  
 
 ### Sample code for Listener
-Consider the simple Talker/Listener example. Suppose the takher is in Linux and Listener is in Windows. We modified the standar Listener code to cope with the roscore statuses. When we run the Listener, roscore might not be up. Also after connection was stablished, roscore may go down any time. So it is important for Listener to check on roscore frequently. here is a sample:
+Consider the simple Talker/Listener example in beginner tutorial in <http://wiki.ros.org/ROS/Tutorials/WritingPublisherSubscriber%28python%29>. Suppose the takher is in Linux and Listener is in Windows. We modified the standar Listener code to cope with the roscore statuses. When we run the Listener, roscore might not be up. Also after connection was stablished, roscore may go down any time. So it is important for Listener to check on roscore frequently. here is a sample:
 ```python
 import config_ros_win  # Load all environment variables
 
