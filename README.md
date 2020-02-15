@@ -56,8 +56,8 @@ import threading
 
 
 class Listener:
-    ''' This class is a listener to a topic called /chatter of type string published by talker node from Linux where the master is
-    The goal is to accurately track the status of the roscore and respond appropriately.
+    ''' This class is a listener to a topic called /chatter of type string published by talker node from Linux
+    where the master is. The goal is to accurately track the status of the roscore and respond appropriately.
      '''
     def __init__(self):
         self.run = True  # flag to run the program
@@ -72,7 +72,7 @@ class Listener:
             if self.ros_state == 'greet':
                 print "Attempting to connect to roscore. Please wait ... "
                 self.ros_state = 'init'
-            elif self.ros_state == 'init':  # First state after application started when it is not connected to the roscore
+            elif self.ros_state == 'init':  # First state after application started 
                 if rosgraph.is_master_online() is True:  # Is ros master up and running?
                     rospy.init_node('Trend', anonymous=False, disable_signals=True)  # Start the node
                     rospy.Subscriber('chatter', String, self.callback)  # subscribe to a topic called /chatter
@@ -83,7 +83,8 @@ class Listener:
                 if rosgraph.is_master_online() is False:  # Every one second check the ros master
                     self.ros_state = 'dead'  # roscore went down after this listener established connection to it
 
-            elif self.ros_state == 'dead':  # roscore went down after we connected to it. rospy cannot reconnect to roscore and it has to restart
+            elif self.ros_state == 'dead':  # roscore went down after we connected to it. 
+                # rospy cannot reconnect to roscore and it has to restart
                 print "roscore is dead. Application is terminated"
                 self.run = False  # Terminate the while loop
 
