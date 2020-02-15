@@ -109,8 +109,8 @@ if __name__ == '__main__':
 ```
 
 ### Troubleshooting
-1- In Linux make sure the node created in Windows appears in rosnode list.   
-2- use roswtf to see if there is any error 
+1- In Linux make sure the node created in Windows appears in rosnode list.     
+2- use roswtf to see if there is any error   
 3- Setting the environment variables are important. For example if ROS_IP is not in windows, roswtf command will give this error:
 
 ERROR Could not contact the following nodes:  
