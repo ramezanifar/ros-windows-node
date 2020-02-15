@@ -113,12 +113,12 @@ if __name__ == '__main__':
 2- use roswtf to see if there is any error 
 3- Setting the environment variables are important. For example if ROS_IP is not in windows, roswtf command will give this error:
 
-ERROR Could not contact the following nodes:
- /Trend
+ERROR Could not contact the following nodes:  
+ /Trend  
 
-ERROR The following nodes should be connected but aren't:
-  /talker->/listener (/chatter)
-  /listener->/rosout (/rosout)
+ERROR The following nodes should be connected but aren't:  
+  /talker->/listener (/chatter)  
+  /listener->/rosout (/rosout)  
 
 
 4- Check your Windows and Linux firewall
