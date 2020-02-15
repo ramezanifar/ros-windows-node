@@ -74,7 +74,7 @@ class Listener:
                 self.ros_state = 'init'
             elif self.ros_state == 'init':  # state to connect to ros master 
                 if rosgraph.is_master_online() is True:  # Is ros master up and running?
-                    rospy.init_node('Trend', anonymous=False, disable_signals=True)  # Start the node
+                    rospy.init_node('listener', anonymous=False, disable_signals=True)  # Start the node
                     rospy.Subscriber('chatter', String, self.callback)  # subscribe to a topic called /chatter
                     self.ros_state = 'online'  # Change the state
                     print "Listener node was created"
@@ -110,6 +110,17 @@ if __name__ == '__main__':
 
 ### Troubleshooting
 1- In Linux make sure the node created in Windows appears in rosnode list.   
-2- use roswtf to see if there is any error  
-3- Check your Windows and Linux firewall
+2- use roswtf to see if there is any error 
+3- Setting the environment variables are important. For example if ROS_IP is not in windows, roswtf command will give this error:
+
+ERROR Could not contact the following nodes:
+ /Trend
+
+ERROR The following nodes should be connected but aren't:
+  /talker->/listener (/chatter)
+  /listener->/rosout (/rosout)
+
+
+4- Check your Windows and Linux firewall
+
 
