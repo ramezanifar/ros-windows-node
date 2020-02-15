@@ -28,9 +28,9 @@ pip install rospkg
 ```python
 import os, sys  
 os.environ['ROS_MASTER_URI'] = 'http://192.168.1.30:11311'  #  This is to find ros master
-os.environ['ROS_IP'] = '192.168.1.20'  #  This is used as the identity of the node in ros network
-os.environ['ROS_PACKAGE_PATH'] = os.path.abspath(".")  #  This is to ensure rosgraph is known
-sys.path.insert(0, "./ros_packages")  #  This is to ensure rospy, rosnode , etc packages are known
+os.environ['ROS_IP'] = '192.168.1.20'  #  This is used as the identity of the node in the ros network
+os.environ['ROS_PACKAGE_PATH'] = os.path.abspath(".")  #  This is to ensure rosgraph is found
+sys.path.insert(0, "./ros_packages")  #  This is to ensure rospy, rosnode , etc packages are found
 ```
   
 8- Put your main python code in  **D:\Test**   
@@ -81,7 +81,7 @@ class Listener:
 
             elif self.ros_state == 'online':  # roscore is online and we are connected to it
                 if rosgraph.is_master_online() is False:  # Every one second check the ros master
-                    self.ros_state = 'dead'  # roscore went down after this listener established connection to it
+                    self.ros_state = 'dead'  # roscore went down after initial connection 
 
             elif self.ros_state == 'dead':  # roscore went down after we connected to it.   
                 # rospy cannot reconnect to roscore and it has to restart  
