@@ -12,7 +12,7 @@ roscore is in Linux. We want to use the rospy library to create an application a
 ### Steps  
 1- Copy the content of the Linux directory of **/opt/ros/melodic/lib/python2.7/dist-packages** and put it in a desired folder in Windows. For example **D:\Test\ros_packages**
 
-2- Copy the content of the Linux directory of **/opt/ros/melodic/share/rosgraph** and put it in **D:\Test**  
+2- Copy the the Linux directory of **/opt/ros/melodic/share/rosgraph** and put it in **D:\Test**  
 
 3- Assuming you have python2.7 and pip installed in Windows. Go to the path **C:\Python27\Lib\site-packages** and screenshot the existing files and folders. Next we want to install some packages and move them outside. So we need to know the differences.
 
