@@ -62,7 +62,7 @@ class Listener:
     def __init__(self):
         self.run = True  # flag to run the program
         self.ros_state = 'greet'  # state machine to keep track of ros connection
-        self.ros_thread = threading.Thread(target=self.ros_check_connect, args=())  # thread to check ROS connection
+        self.ros_thread = threading.Thread(target=self.ros_check_connect, args=())  # thread to check ROS  
         self.ros_thread.start()  # start the thread
 
     def ros_check_connect(self):
@@ -104,7 +104,7 @@ if __name__ == '__main__':
             time.sleep(1)  # Just idle until ctrl+c is detected
         except KeyboardInterrupt:
             print "ctrl+c was detected. Listener node is terminated"
-            my_listener.run = False
+            my_listener.run = False  # this will terminate the thread used for ros checking
 
 ```
 
