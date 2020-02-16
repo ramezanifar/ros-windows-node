@@ -120,7 +120,7 @@ First thing first, we need to wait for roscore before registering the node in ro
 6- Setting the environment variables are important. For example if **ROS_IP** is not set in either side, *roswtf* command will give this error:
 
 ERROR Could not contact the following nodes:  
- /Trend  
+ /listener  
 
 ERROR The following nodes should be connected but aren't:  
   /talker->/listener (/chatter)  
