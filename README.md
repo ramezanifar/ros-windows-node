@@ -109,7 +109,7 @@ if __name__ == '__main__':
 ##### Why thread?
 If network connection between Windows and Linux is not established (ping failes), or if roscore is not up and running when Listener started, the command *rosgraph.is_master_online()* takes time to return False during which you code is blocked. Therefore I put it in a thread so that program can continue its normal tasks. For instance, assume you have a GUI in tkinter. It requires fast update. With this design the update routine can be called in main thread and the ros_check_connect does not block it. When *rospy.init_node* is in a thread, the *disable_signals* argumnt must be True.
 ##### Why state machine?
-First thing first, we need to wait for roscore before registering the node in ros and subscribing to the desired topic. Second we need to monitor the roscore status to be up and running. In case roscore went down, we need to terminate the program because rospy won’t be able to reconnect if roscore comes back to life.  
+First thing first, we need to wait for roscore before registering the node in ros and subscribing to the desired topic. Second we need to monitor the roscore status to be up and running. In case roscore went down, we need to terminate the program because rospy won’t be able to reconnect if roscore comes back to life. A state machine can help with tracking the various states we have.
 
 ### Troubleshooting
 1- Ensure network connection is healthy. Run ping from either side.  
