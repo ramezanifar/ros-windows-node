@@ -56,7 +56,7 @@ import threading
 
 class Listener:
     ''' This class is a listener to a topic called /chatter of type string published by talker node from Linux
-    where the master is. The goal is to accurately track the status of the roscore and respond appropriately.
+    where the master is. It tracks the status of the roscore.
      '''
     def __init__(self):
         self.run = True  # flag to run the program
@@ -87,7 +87,7 @@ class Listener:
                 print "roscore is dead. Application is terminated"
                 self.run = False  # Terminate the while loop
 
-            time.sleep(1)  #  Check the ros connection at slow rate
+            time.sleep(1)  #  Check the ros connection at a slow rate
 
     def callback(self,data):
         # Callback for the subscriber
@@ -98,7 +98,7 @@ class Listener:
 if __name__ == '__main__':
     my_listener = Listener()  # Create an object of the Listener class
     # Run the main thread. This is to capture ctrl+c
-    while my_listener.run == True:
+    while my_listener.run == True:  
         try:
             time.sleep(1)  # Just idle until ctrl+c is detected
         except KeyboardInterrupt:
@@ -107,7 +107,7 @@ if __name__ == '__main__':
 
 ```
 ##### Why thread?
-If network connection between Windows and Linux is not established (ping failes), or if roscore is not up and running when Listener started, the command *rosgraph.is_master_online()* takes time to return False during which you code is blocked. Therefore I put it in a thread so that program can continue its normal tasks. For instance, assume you have a GUI in tkinter. It requires fast update. With this design the update routine can be called in main thread and the ros_check_connect does not block it. When *rospy.init_node* is in a thread, the *disable_signals* argumnt must be True.
+If network connection between Windows and Linux is not established (ping failes), or if roscore is not up and running when Listener starts, the command *rosgraph.is_master_online()* takes time to return False during which the code is blocked. Therefore We put it in a thread so that the program can continue other tasks. For instance, assume you have a GUI in tkinter. It requires fast update. With this design the update routine can be called in main thread and the ros_check_connect does not block it. When *rospy.init_node* is in a thread, the *disable_signals* argumnt must be True.
 ##### Why state machine?
 First thing first, we need to wait for roscore before registering the node in ros and subscribing to the desired topic. Second we need to monitor the roscore status to be up and running. In case roscore went down, we need to terminate the program because rospy won’t be able to reconnect if roscore comes back to life. A state machine can help with tracking the various states we have.
 
