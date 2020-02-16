@@ -45,7 +45,7 @@ These lines can be added in the .bashrc and as a result when you open a terminal
 11- Run roscore and your code  
 
 ### Sample code for Listener
-Consider the simple Talker/Listener example in the beginner tutorial. Suppose the Takler is in Linux and Listener is in Windows. We modified the standar Listener code to cope with the roscore status. When we run the Listener, roscore might not be up. Also after the connection was stablished, roscore may go down any time. So it is important for Listener to check on roscore frequently. here is a sample:
+Consider the simple Talker/Listener example in the beginner tutorial. Suppose the Talker is in Linux and Listener is in Windows. We modified the standard Listener code to cope with the roscore status. When we run the Listener, roscore might not be up. Also after the connection was stablished, roscore may go down any time. So it is important for Listener to check on roscore frequently. Here is a sample:
 ```python
 import config_ros_win  # Load all environment variables
 
@@ -61,7 +61,7 @@ class Listener:
      '''
     def __init__(self):
         self.run = True  # flag to run the program
-        self.ros_state = 'greet'  # state machine to keep track of ros connection
+        self.ros_state = 'init'  # state machine to keep track of ros connection
         self.ros_thread = threading.Thread(target=self.ros_check_connect, args=())  # thread to check ROS  
         self.ros_thread.start()  # start the thread
 
@@ -69,10 +69,10 @@ class Listener:
         """ This method is used to check the ROS connection """
         while self.run is True:
             # Run the state machine
-            if self.ros_state == 'greet':
+            if self.ros_state == 'init':
                 print "Attempting to connect to roscore. Please wait ... "
-                self.ros_state = 'init'
-            elif self.ros_state == 'init':  # state to connect to ros master 
+                self.ros_state = 'connect'
+            elif self.ros_state == 'connect':  # state to connect to ros master 
                 if rosgraph.is_master_online() is True:  # Is ros master up and running?
                     rospy.init_node('listener', anonymous=False, disable_signals=True)  # Start the node
                     rospy.Subscriber('chatter', String, self.callback)  # subscribe to a topic called /chatter
@@ -98,7 +98,7 @@ class Listener:
 
 if __name__ == '__main__':
     my_listener = Listener()  # Create an object of the Listener class
-    # Run the main thread. this is to capture ctrl+c
+    # Run the main thread. This is to capture ctrl+c
     while my_listener.run == True:
         try:
             time.sleep(1)  # Just idle until ctrl+c is detected
@@ -107,11 +107,18 @@ if __name__ == '__main__':
             my_listener.run = False  # this will terminate the thread used for ros checking
 
 ```
+##### Why thread?
+If network connection between Windows and Linux is not established (ping failes), or if roscore is not up and running when Listener started, the command *rosgraph.is_master_online()* takes time to return False during which you code is blocked. Therefore I put it in a thread so that program can continue its normal tasks. For instance, assume you have a GUI in tkinter. It requires fast update. With this design the update routine can be called in main thread and the ros_check_connect does not block it. When *rospy.init_node* is in a thread, the *disable_signals* argumnt must be True.
+##### Why state machine?
+First thing first, we need to wait for roscore before registering the node in ros and subscribing to the desired topic. Second we need to monitor the roscore status to be up and running. In case roscore went down, we need to terminate the program because rospy won’t be able to reconnect if roscore comes back to life.  
 
 ### Troubleshooting
-1- In Linux make sure the node created in Windows appears in rosnode list.     
-2- use roswtf to see if there is any error   
-3- Setting the environment variables are important. For example if ROS_IP is not in windows, roswtf command will give this error:
+1- Ensure network connection is healthy. Run ping from either side.  
+2- Check your Windows and Linux firewall. It can block communications.  
+3- In Linux make sure the node *listener* created in Windows appears in rosnode list.  
+4- Use the *rostopic list* to see the topic /chatter. Use *rostopic info /chatter* to see if topic has a publisher and subscriber.  
+5- Use roswtf to see if there is any error.    
+6- Setting the environment variables are important. For example if **ROS_IP** is not set in either side, *roswtf* command will give this error:
 
 ERROR Could not contact the following nodes:  
  /Trend  
@@ -120,7 +127,5 @@ ERROR The following nodes should be connected but aren't:
   /talker->/listener (/chatter)  
   /listener->/rosout (/rosout)  
 
-
-4- Check your Windows and Linux firewall
 
 
