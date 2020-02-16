@@ -7,7 +7,6 @@ roscore is in Linux. We want to use the rospy library to create an application a
 ### Network assumptions  
 - Linux machine IP address is 192.168.1.10  
 - Windows machine IP address is 192.168.1.20  
-- You can ping a machine from other one
 
 ### Steps  
 1- Copy the content of the Linux directory of **/opt/ros/melodic/lib/python2.7/dist-packages** and put it in a desired folder in Windows. For example **D:\Test\ros_packages**
